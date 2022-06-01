@@ -3,7 +3,10 @@ package com.tasha.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import com.tasha.dto.BookDto;
 import com.tasha.dto.CustomerDto;
 
 /**
@@ -60,4 +63,45 @@ public class BookshopDao {
 		return customer;
 	}
 	
-}
+	//get categories
+	public ArrayList<String> getCategories() throws Exception {
+		
+		ArrayList<String> categoryList = new ArrayList<String>();
+		try(ResultSet rst = pstBookCategory.executeQuery();){
+			while(rst.next()) {
+				categoryList.add(rst.getString(1));
+			}
+		}
+		System.out.println("categories: " + categoryList);
+		return categoryList;
+	}
+	
+	//get book by category
+	public LinkedHashMap<Integer, String> getBooksByCategory(String category) throws SQLException{
+		
+		LinkedHashMap<Integer, String> books = new LinkedHashMap<Integer, String>();
+		pstBookDetail.setString(1, category);
+		try(ResultSet rst = pstBookDetail.executeQuery();){
+			while(rst.next() == true) {
+				books.put(rst.getInt(1), rst.getString(2));
+			}
+		}
+		System.out.println("books: " + books);
+		return books;
+	}
+	
+	//get cart details
+	public ArrayList<BookDto> getCartDetails(ArrayList<Integer> ids) throws Exception {
+		ArrayList<BookDto> bookList = new ArrayList<BookDto>();
+		for(int id : ids) {
+			pstCartDetail.setInt(1, id);
+			try(ResultSet rst = pstCartDetail.executeQuery()){
+				if(rst.next()) {
+					bookList.add(new BookDto(rst.getString(1), rst.getString(2), rst.getString(3), rst.getDouble(4)));
+				}
+			}
+		}
+		System.out.println("cart values: " + bookList);
+		return bookList;
+	}
+} 
