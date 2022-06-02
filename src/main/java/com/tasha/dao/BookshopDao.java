@@ -11,7 +11,7 @@ import com.tasha.dto.CustomerDto;
 
 /**
  * @author Shahrukh
- *
+ * @since May 2022
  */
 public class BookshopDao {
 	
@@ -56,7 +56,7 @@ public class BookshopDao {
 		try(ResultSet rst = pstCustValidate.executeQuery();){
 			if(rst.next()) {
 				customer = new CustomerDto(rst.getInt(1), rst.getString(2), email, password, 
-							rst.getDouble("depsit_amt"), rst.getDate("reg_date"), rst.getString("role"));
+							rst.getDouble("deposit_amt"), rst.getDate("reg_date"), rst.getString("role"));
 			}
 		}
 		System.out.println("valid customer: " + customer);
