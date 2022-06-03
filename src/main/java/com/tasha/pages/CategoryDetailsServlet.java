@@ -2,6 +2,7 @@ package com.tasha.pages;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -22,6 +23,7 @@ public class CategoryDetailsServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -31,6 +33,9 @@ public class CategoryDetailsServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			BookshopDao bookshopDao = (BookshopDao) session.getAttribute("bookshopDao");
 			String selectedCategory = request.getParameter("book_category");
+			ArrayList<Integer> cart = (ArrayList<Integer>) session.getAttribute("cart");
+			
+			//get books by category
 			LinkedHashMap<Integer, String> bookMap = bookshopDao.getBooksByCategory(selectedCategory);
 			
 			//dynamic form
@@ -39,10 +44,12 @@ public class CategoryDetailsServlet extends HttpServlet {
 			pw.print("<form action='add_cart' menthod='get'> ");
 			Set<Entry<Integer, String>> entries = bookMap.entrySet();
 			for(Entry<Integer, String> entry : entries) {
-				pw.print("<input type='checkbox' value='" + entry.getKey() + "'> " + entry.getValue() + "<br/>");
+				pw.print("<input type='checkbox' name='bookTitle' value='" + entry.getKey() + "'> " + entry.getValue() + "<br/>");
 			}
 			pw.print("<input type='submit' value='Add to Cart' >");
 			pw.print("</form>");
+			
+			pw.print("<h5>Cart Items: " + cart + " </h5>");
 			pw.print("</body></html>"); 
 			
 		} catch (Exception e) {
