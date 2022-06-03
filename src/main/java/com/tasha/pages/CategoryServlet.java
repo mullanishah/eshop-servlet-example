@@ -37,7 +37,7 @@ public class CategoryServlet extends HttpServlet {
 			for(String category : categories)
 				pw.print("<option value = '" + category + "'>" + category + "</option>");
 			pw.print("<select> </br>");
-			pw.print("<input type='submit' value='choose'>");
+			pw.print("<input type='submit' value='choose category'>");
 			pw.print("</form>");
 			pw.print("<a href='checkout'>Check out</a>");
 			pw.print("</body></html>");
