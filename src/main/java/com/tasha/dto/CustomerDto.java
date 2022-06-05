@@ -4,7 +4,7 @@ import java.sql.Date;
 
 /**
  * @author Shahrukh
- *
+ * @since May 2022
  */
 public class CustomerDto {
 	private int custId;

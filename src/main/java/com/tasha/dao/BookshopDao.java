@@ -34,6 +34,7 @@ public class BookshopDao {
 	}
 	
 	public void cleanUp() throws Exception {
+		System.out.println("Clean up menthod initiated");
 		if(pstCustValidate != null)
 			pstCustValidate.close();
 		if(pstBookCategory != null)
@@ -47,7 +48,7 @@ public class BookshopDao {
 	}
 	
 	//CRUD operations
-	//Cust validationd
+	//Cust validation
 	public CustomerDto validateCustomer(String email, String password) throws Exception{
 		
 		CustomerDto customer = null;
