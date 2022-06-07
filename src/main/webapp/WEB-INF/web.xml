@@ -12,6 +12,7 @@
   <servlet>
   	<servlet-name>hello-servlet</servlet-name>
   	<servlet-class>com.tasha.sample.HelloServlet</servlet-class>
+  	<load-on-startup>1</load-on-startup>
   </servlet>
   
   <servlet-mapping>
